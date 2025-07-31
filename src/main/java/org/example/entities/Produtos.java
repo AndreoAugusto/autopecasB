@@ -44,8 +44,10 @@ public class Produtos {
     public Produtos() {
     }
 
-    public Produtos(Long id_produto, String nome_prod, String marca_prod, int qtde_prod, double preco_prod, String descricao_prod) {
+    public Produtos(Long id_produto, Set<Vendas> vendas, Fornecedores fornecedores, String nome_prod, String marca_prod, int qtde_prod, double preco_prod, String descricao_prod) {
         this.id_produto = id_produto;
+        this.vendas = vendas;
+        this.fornecedores = fornecedores;
         this.nome_prod = nome_prod;
         this.marca_prod = marca_prod;
         this.qtde_prod = qtde_prod;
@@ -59,6 +61,22 @@ public class Produtos {
 
     public void setId_produto(Long id_produto) {
         this.id_produto = id_produto;
+    }
+
+    public Set<Vendas> getVendas() {
+        return vendas;
+    }
+
+    public void setVendas(Set<Vendas> vendas) {
+        this.vendas = vendas;
+    }
+
+    public Fornecedores getFornecedores() {
+        return fornecedores;
+    }
+
+    public void setFornecedores(Fornecedores fornecedores) {
+        this.fornecedores = fornecedores;
     }
 
     public String getNome_prod() {
