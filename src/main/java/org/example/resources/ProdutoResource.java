@@ -31,10 +31,19 @@ public class ProdutoResource {
     }
 
     @PostMapping
+    public ResponseEntity<Produtos> insert(@Valid @RequestBody Long id_fornecedor, Produtos obj) {
+        obj = service.insert(id_fornecedor, obj);
+        return ResponseEntity.status(HttpStatus.CREATED).body(obj);
+    }
+
+    /* CHAT QUE DEU
+    @PostMapping
     public ResponseEntity<Produtos> insert(@Valid @RequestBody Produtos obj) {
         obj = service.insert(obj);
         return ResponseEntity.status(HttpStatus.CREATED).body(obj);
     }
+     */
+
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<Produtos> update(@Valid @RequestBody Produtos obj, @PathVariable Long id) {

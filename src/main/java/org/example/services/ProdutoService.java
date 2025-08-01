@@ -1,5 +1,6 @@
 package org.example.services;
 
+import org.example.entities.Fornecedores;
 import org.example.entities.Produtos;
 import org.example.repositories.FornecedorRepository;
 import org.example.repositories.ProdutoRepository;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -33,20 +35,24 @@ public class ProdutoService {
         return produtos;
     }
 
-    /*public Produtos insert(Produtos obj) {
-        try {
-            if(obj.getFornecedores() != null && obj.getFornecedores().getId_fornecedor() != null)   {
-                fornecedorRepository.findById(obj.getFornecedores().getId_fornecedor()).orElseThrow(() -> new ResourceNotFoundException(obj.getFornecedores().getId_fornecedor()));
-            } else {
-                throw new IllegalArgumentException("fornecedor não informado.");
-            }
-            return obj = produtoRepository.save(obj);
-        } catch (DataIntegrityViolationException e) {
-            throw new ValueBigForAtributeException(e.getMessage());
-        }
-    }*/
+    public Produtos insert(Long id_fornecedor, Produtos obj) {
+        Fornecedores fornecedor = fornecedorRepository.findById(id_fornecedor).orElseThrow(() -> new RuntimeException("Fornecedor não encontrado"));
+        obj.setFornecedores(fornecedor);
+        return produtoRepository.save(obj);
+    }
 
+    /* CHAT QUE DEU
     public Produtos insert(Produtos obj) {
+        Long id_fornecedor = obj.getFornecedores().getId_fornecedor();
+        Fornecedores fornecedor = fornecedorRepository.findById(id_fornecedor)
+            .orElseThrow(() -> new RuntimeException("Fornecedor não encontrado"));
+        obj.setFornecedores(fornecedor);
+        return produtoRepository.save(obj);
+    }
+     */
+
+
+    /*public Produtos insert(Produtos obj) {
         try {
             if (obj.getFornecedores() != null && obj.getFornecedores().getId_fornecedor() != null) {
                 obj.setFornecedores(fornecedorRepository.findById(obj.getFornecedores().getId_fornecedor())
@@ -60,7 +66,7 @@ public class ProdutoService {
         } catch (DataIntegrityViolationException e) {
             throw new ValueBigForAtributeException(e.getMessage());
         }
-    }
+    }*/
 
 
 
